@@ -1,6 +1,7 @@
 from math import *
 from itertools import combinations
 from operator import itemgetter
+from timeit import default_timer as timer
 import random
 
 
@@ -38,17 +39,26 @@ def perfect_match(l_o_nct, r_o_nct):
             return False
 
 
-def find_match(spectrum):
+def find_match(spectrum, mode):
     # random.shuffle(spectrum)
-    for i in range(len(spectrum)):
-        for j in range(i+1, len(spectrum)):
-            match = perfect_match(spectrum[i], spectrum[j])
-            if(match):
-                spectrum.pop(j)
-                spectrum.pop(i)
-                spectrum.insert(0, match)
-                # spectrum.append(match)
-                return spectrum
+    if(mode == 'append'):
+        for i in range(len(spectrum)):
+            for j in range(i+1, len(spectrum)):
+                match = perfect_match(spectrum[i], spectrum[j])
+                if(match):
+                    spectrum.pop(j)
+                    spectrum.pop(i)
+                    spectrum.append(match)
+                    return spectrum
+    elif(mode == 'prepend'):
+        for i in range(len(spectrum)):
+            for j in range(i+1, len(spectrum)):
+                match = perfect_match(spectrum[i], spectrum[j])
+                if(match):
+                    spectrum.pop(j)
+                    spectrum.pop(i)
+                    spectrum.insert(0, match)
+                    return spectrum
     return []
 
 
@@ -64,16 +74,23 @@ def list_to_dict(lst):
     return dct
 
 
-def optimize(spectrum):
+def optimize(spectrum, mode):
     optimized = []
     while(True):
-        current = find_match(spectrum)
+        current = find_match(spectrum, mode)
         if(current):
             optimized = current
         else:
             break
     optimized = list_to_dict(optimized)
     return optimized
+
+
+def check_if_perfect(optimized, N):
+    for k in optimized:
+        if(len(optimized[k]) == N):
+            return k
+    return -1
 
 
 def get_combination(n, k):
@@ -167,11 +184,13 @@ def get_best_seq(evaluated_population, N):
 
 def tournament(evaluated_population, size_of_population, N):
     contestants = []
-    lottery_picks = get_combination(
-        size_of_population, int(size_of_population*0.1))
-    for pick in lottery_picks:
-        contestants.append(evaluated_population[pick])
-    winner_id = find_best_seq(contestants, N)
+    winner_id = None
+    while(winner_id == None):
+        lottery_picks = get_combination(
+            size_of_population, int(size_of_population*0.05))
+        for pick in lottery_picks:
+            contestants.append(evaluated_population[pick])
+        winner_id = find_best_seq(contestants, N)
     return winner_id
 
 
@@ -227,7 +246,7 @@ def verify_if_fit_and_legal(children, l_parent, r_parent, N):
     return fit_legal_children
 
 
-def crossover(l_parent, r_parent, optimized, l, N):
+def multi_point_crossover(l_parent, r_parent, optimized, l, N):
     l_cuts, r_cuts, children = [], [], []
     list_of_keys = l_parent[0] + r_parent[0]
     l_seq_num = len(l_parent[0])
@@ -267,12 +286,12 @@ def survival_of_the_fittest(evaluated_population, size_of_population, N):
 
 
 def evolve(population, size_of_population, optimized, N):
-    for i in range(100):
+    for i in range(int(0.9*size_of_population)):
         pop_children = []
-        for i in range(50):
+        for i in range(int(0.25*size_of_population)):
             l_parent = tournament(population, size_of_population, N)
             r_parent = tournament(population, size_of_population, N)
-            children = crossover(
+            children = multi_point_crossover(
                 l_parent, r_parent, optimized, l, N)
             for child in children:
                 mutate
@@ -281,27 +300,37 @@ def evolve(population, size_of_population, optimized, N):
             loser_id = survival_of_the_fittest(
                 population, size_of_population, N)
             population[loser_id] = child
-        #print(get_best_seq(population, N))
 
 
 if __name__ == "__main__":
-    N = 209
+    N = 509
     l = 10
+    perfect_score = 400  # N-l+1
     size_of_population = int(N/2)
-    spectrum = get_spectrum("sample_instance.txt")
-    # spectrum = ["AAT", "ACA", "ACG", "AGT",
-    #            "CAA", "CAG", "CGA", "GTT", "TAC", "TCA"]
-    optimized = optimize(spectrum)
-    inital_population = generate_population(optimized, size_of_population, N)
-    evaluated_population = evaluate(inital_population, optimized, l, N)
-    for seq in evaluated_population:
-        print("Length: " + str(seq[3]) + " Score: " + str(seq[4]))
-    print("")
-    print("")
-    print("")
-    evolve(evaluated_population, size_of_population, optimized, N)
-    for seq in evaluated_population:
-        print("Length: " + str(seq[3]) + " Score: " + str(seq[4]))
-    print("")
-    print("")
-    print("")
+    mode = ['append', 'prepend']
+    spectrum = get_spectrum("53.500-100.txt")
+    start = timer()
+    optimized = optimize(spectrum, mode[0])
+    pre_check = check_if_perfect(optimized, N)
+    print(pre_check)
+    if(pre_check >= 0):
+        optimal = optimized[pre_check]
+        print(optimal)
+        print("Length: " + str(len(optimal)) + " Score: " +
+              str(perfect_score) + " Accuracy: 100%")
+    else:
+        inital_population = generate_population(
+            optimized, size_of_population, N)
+        evaluated_population = evaluate(inital_population, optimized, l, N)
+        current_best = get_best_seq(evaluated_population, N)
+        print("Length: " + str(current_best[3]) + " Score: " + str(current_best[4]) +
+              " Accuracy: " + str((current_best[4]/perfect_score)*100) + "%")
+        print("")
+        print("")
+        print("")
+        evolve(evaluated_population, size_of_population, optimized, N)
+        current_best = get_best_seq(evaluated_population, N)
+        print("Length: " + str(current_best[3]) + " Score: " + str(current_best[4]) +
+              " Accuracy: " + str((current_best[4]/perfect_score)*100) + "%")
+    end = timer()
+    print(str(end - start) + " [s]")
