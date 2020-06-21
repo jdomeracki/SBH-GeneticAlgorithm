@@ -7,7 +7,7 @@ from datetime import datetime
 def create_results_file():
     now = datetime.now()
     timestamp = now.strftime("%m_%d_%Y_%H_%M_%S")
-    results_file = open("./Results/" + timestamp, "a+")
+    results_file = open("./Results/" + timestamp + ".txt", "a+")
     return results_file
 
 
