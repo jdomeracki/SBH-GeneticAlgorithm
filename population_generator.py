@@ -1,6 +1,6 @@
 # Standard and third party libraries
 from math import *
-from itertools import combinations
+from itertools import combinations, permutations
 import random
 
 
@@ -28,12 +28,14 @@ def get_avg(dct):
 
 def merge(sequences):
     merged = sequences[0]
+    overlap_count = 0
     for i in range(len(sequences)-1):
         l_seq = sequences[i]
         r_seq = sequences[i+1]
         overlap = get_overlap(l_seq, r_seq)
         merged += r_seq[overlap:]
-    return merged
+        overlap_count += overlap
+    return merged, overlap_count
 
 
 def get_num_of_ncts(optimized, keys, length):
@@ -50,9 +52,10 @@ def get_num_of_ncts(optimized, keys, length):
 def generate_population(optimized, size_of_population, N):
     population = []
     n = len(optimized)
-    k = int(ceil(N/get_avg(optimized)))
+    avg = int(ceil(N/get_avg(optimized)))
     for i in range(size_of_population):
         values = []
+        k = random.randint(avg, n-1)
         keys = get_combination(n, k)
         for key in keys:
             values.append(optimized[key])
@@ -62,11 +65,12 @@ def generate_population(optimized, size_of_population, N):
 
 def evaluate(population, optimized, initial_length, N):
     for seq in population:
-        merged = merge(seq[1])
+        merged, overlaps = merge(seq[1])
         seq.append(merged)
         merged_length = len(merged)
         seq.append(merged_length)
         num_of_o_ncts = get_num_of_ncts(optimized, seq[0], initial_length)
-        fitness_score = num_of_o_ncts
+        fitness_score = num_of_o_ncts - abs(N-merged_length)
         seq.append(fitness_score)
+        seq.append(num_of_o_ncts)
     return population

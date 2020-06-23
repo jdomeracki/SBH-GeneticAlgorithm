@@ -12,7 +12,7 @@ def create_results_file():
 
 
 def get_intances():
-    instances = os.listdir(".\Instances")
+    instances = os.listdir(".\Instances\RepetitionNegativeErrors")
     return instances
 
 
@@ -30,9 +30,9 @@ def set_parameters(instance, spectrum):
     l = len(spectrum[0])
     N = num_of_oncts_in_org_seq + l - 1
     size_of_spectrum = len(spectrum)
-    size_of_population = int(size_of_spectrum/2)
+    size_of_population = 1000  # int(N)
     if(size_of_spectrum < num_of_oncts_in_org_seq):
         perfect_score = size_of_spectrum
     else:
         perfect_score = num_of_oncts_in_org_seq
-    return N, l, perfect_score, size_of_population
+    return N, l, perfect_score, size_of_population, size_of_spectrum

@@ -8,12 +8,12 @@ from population_generator import evaluate, get_combination
 
 
 def find_best_seq(list_of_seqs, N):
-    best_score = 0
+    best_score = -10000
     best_seq = None
     for seq in list_of_seqs:
         fintess_score = seq[4]
         seq_length = seq[3]
-        if (fintess_score > best_score and seq_length <= N):
+        if (fintess_score > best_score):  # and seq_length <= N):
             best_score = fintess_score
             best_seq = seq
     return best_seq
@@ -75,16 +75,25 @@ def map_from_optimized(children, optimized):
     return children
 
 
-def mutate(children, optimized):
-    for child in children:
-        list_of_keys = child[0]
-        key_id = random.randint(0, len(child[0])-1)
-        while(True):
-            replace_with = random.randint(0, len(optimized)-1)
-            if(replace_with not in list_of_keys):
-                child[0][key_id] = replace_with
-                break
-    return children
+def mutate_by_insertion(child, optimized):
+    list_of_keys = child[0]
+    key_id = random.randint(0, len(child[0])-1)
+    while(True):
+        replace_with = random.randint(0, len(optimized)-1)
+        if(replace_with not in list_of_keys):
+            child[0][key_id] = replace_with
+            break
+    return child
+
+
+def mutate_by_swap(child):
+    size_of_child = len(child[0])
+    child_seq = child[0]
+    index_a = random.randint(0, size_of_child-1)
+    index_b = random.randint(0, size_of_child-1)
+    child_seq[index_a], child_seq[index_b] = child_seq[index_b], child_seq[index_a]
+    child[0] = child_seq
+    return child
 
 
 def verify_if_fit_and_legal(children, l_parent, r_parent, N):
@@ -94,7 +103,8 @@ def verify_if_fit_and_legal(children, l_parent, r_parent, N):
         child_length = child[3]
         l_parent_score = l_parent[4]
         r_parent_score = r_parent[4]
-        if (((child_score > l_parent_score) or (child_score > r_parent_score)) and (child_length <= N)):
+        # and (child_length <= N)):
+        if (((child_score > l_parent_score) or (child_score > r_parent_score))):
             fit_legal_children.append(child)
     return fit_legal_children
 
@@ -118,12 +128,7 @@ def multi_point_crossover(l_parent, r_parent, optimized, l, N):
                      r_parent[0][r_cuts[1]:r_cuts[2]] + r_parent[0][r_cuts[2]:]])
     children.append([r_parent[0][:r_cuts[0]] + r_parent[0][r_cuts[0]:r_cuts[1]] +
                      l_parent[0][l_cuts[1]:l_cuts[2]] + l_parent[0][l_cuts[2]:]])
-
     children = remove_duplicates(children, list_of_keys)
-    children = mutate(children, optimized)
-    children = map_from_optimized(children, optimized)
-    children = evaluate(children, optimized, l, N)
-    children = verify_if_fit_and_legal(children, l_parent, r_parent, N)
     return children
 
 
@@ -138,7 +143,7 @@ def survival_of_the_fittest(evaluated_population, size_of_population, N):
 
 
 def evolve(population, size_of_population, optimized, N, l):
-    for i in range(int(0.9*size_of_population)):
+    for i in range(200):  # hardcoded
         pop_children = []
         for i in range(int(0.25*size_of_population)):
             l_parent = tournament(population, size_of_population, N)
@@ -146,8 +151,28 @@ def evolve(population, size_of_population, optimized, N, l):
             children = multi_point_crossover(
                 l_parent, r_parent, optimized, l, N)
             for child in children:
-                pop_children.append(child)
+                toss = random.uniform(0, 1)
+                if(toss <= 0.1):
+                    child = mutate_by_swap(child)
+                elif(toss >= 0.9):
+                    child = mutate_by_insertion(child, optimized)
+            children = map_from_optimized(children, optimized)
+            children = evaluate(children, optimized, l, N)
+            children = verify_if_fit_and_legal(children, l_parent, r_parent, N)
+            if (children):
+                for child in children:
+                    pop_children.append(child)
         for child in pop_children:
             loser_id = survival_of_the_fittest(
                 population, size_of_population, N)
             population[loser_id] = child
+
+
+if __name__ == "__main__":
+    child = [[1, 2, 3, 4, 5, 6, 7, 8]]
+    child = mutate_by_swap(child)
+    print(child)
+
+    table = [[9, 10, 20, 30]]
+    child = mutate_by_insertion(child, table)
+    print(child)
