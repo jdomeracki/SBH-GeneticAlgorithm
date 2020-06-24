@@ -158,7 +158,7 @@ def mutate(child, optimized, toss, mutation_rate):
 
 
 def evolve(population, size_of_population, optimized, mutation_rate, l, N):
-    print(f'worst before: ', min(population, key=lambda x: x[5])[5])
+    #print(f'worst before: ', min(population, key=lambda x: x[5])[5])
     population = sorted(population, key=lambda x: -x[5])
     population = [p for p in population if p[3] <= N]
     population = population[:(size_of_population//2)]
@@ -177,9 +177,9 @@ def evolve(population, size_of_population, optimized, mutation_rate, l, N):
         population += children
         generated_children += len(children)
         iterations += 1
-    print(f'{generated_children} children generated in {iterations} iterations')
+    #print(f'{generated_children} children generated in {iterations} iterations')
     population = population[:size_of_population]
-    print(f'worst after: ', min(population, key=lambda x: x[5])[5])
+    #print(f'worst after: ', min(population, key=lambda x: x[5])[5])
     return population
 
     ## old version
