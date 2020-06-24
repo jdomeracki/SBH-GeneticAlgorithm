@@ -149,30 +149,63 @@ def survival_of_the_fittest(evaluated_population, size_of_population, N):
     return loser_id
 
 
+def mutate(child, optimized, toss, mutation_rate):
+    if(toss <= mutation_rate):
+        return mutate_by_swap(child)
+    elif(toss >= 1-mutation_rate):
+        return mutate_by_insertion(child, optimized)
+    else: return child
+
+
 def evolve(population, size_of_population, optimized, mutation_rate, l, N):
-    # for i in range(100):  # hardcoded
-    pop_children = []
-    for i in range(int(0.25*size_of_population)):
-        l_parent = tournament(population, size_of_population, N)
-        r_parent = tournament(population, size_of_population, N)
+    print(f'worst before: ', min(population, key=lambda x: x[5])[5])
+    population = sorted(population, key=lambda x: -x[5])
+    population = [p for p in population if p[3] <= N]
+    population = population[:(size_of_population//2)]
+    generated_children = 0
+    iterations = 0
+    while len(population) < size_of_population:
+        l_parent = population[iterations % len(population)]
+        r_parent = population[(iterations+7) % len(population)]
         children = multi_point_crossover(
             l_parent, r_parent, optimized, l, N)
-        for child in children:
-            toss = random.uniform(0, 1)
-            if(toss <= mutation_rate):
-                child = mutate_by_swap(child)
-            elif(toss >= 1-mutation_rate):
-                child = mutate_by_insertion(child, optimized)
+        toss = random.uniform(0, 1)
+        children = [mutate(c, optimized, toss, mutation_rate) for c in children]
         children = map_from_optimized(children, optimized)
         children = evaluate(children, optimized, l, N)
-        children = verify_if_fit_and_legal(children, l_parent, r_parent, N)
-        if (children):
-            for child in children:
-                pop_children.append(child)
-    for child in pop_children:
-        loser_id = survival_of_the_fittest(
-            population, size_of_population, N)
-        population[loser_id] = child
+        children = [c for c in children if c[3] <= N]
+        population += children
+        generated_children += len(children)
+        iterations += 1
+    print(f'{generated_children} children generated in {iterations} iterations')
+    population = population[:size_of_population]
+    print(f'worst after: ', min(population, key=lambda x: x[5])[5])
+    return population
+
+    ## old version
+    #pop_children = []
+    #for i in range(int(0.25*size_of_population)):
+    #    l_parent = tournament(population, size_of_population, N)
+    #    r_parent = tournament(population, size_of_population, N)
+    #    children = multi_point_crossover(
+    #        l_parent, r_parent, optimized, l, N)
+    #    for child in children:
+    #        child = mutate_by_insertion(child, optimized)
+    #        #toss = random.uniform(0, 1)
+    #        #if(toss <= mutation_rate):
+    #        #    child = mutate_by_swap(child)
+    #        #elif(toss >= 1-mutation_rate):
+    #        #    child = mutate_by_insertion(child, optimized)
+    #    children = map_from_optimized(children, optimized)
+    #    children = evaluate(children, optimized, l, N)
+    #    children = verify_if_fit_and_legal(children, l_parent, r_parent, N)
+    #    if (children):
+    #        for child in children:
+    #            pop_children.append(child)
+    #for child in pop_children:
+    #    loser_id = survival_of_the_fittest(
+    #        population, size_of_population, N)
+    #    population[loser_id] = child
 
 
 if __name__ == "__main__":
