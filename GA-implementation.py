@@ -21,7 +21,7 @@ if __name__ == "__main__":
     results_file = create_results_file()
     problem_types = ['RandomPositiveErrors', 'RandomNegativeErrors',
                     'PositiveErrorsWithDistortions', 'NegativeByRepetition']
-    problem_type = problem_types[1]
+    problem_type = problem_types[2]
     instances = get_intances(problem_type)
     for instance in instances:
         spectrum = get_spectrum(
@@ -70,3 +70,4 @@ if __name__ == "__main__":
         # accuracy_list.append((current_best[4]/perfect_score)*100)
         results_file.write(" Execution time: " + str(end - start) + " [s]\n")
         print("Execution time: " + str(end - start) + " [s]\n")
+        break

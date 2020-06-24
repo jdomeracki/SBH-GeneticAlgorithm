@@ -169,8 +169,7 @@ def evolve(population, size_of_population, optimized, mutation_rate, l, N):
         r_parent = population[(iterations+7) % len(population)]
         children = multi_point_crossover(
             l_parent, r_parent, optimized, l, N)
-        toss = random.uniform(0, 1)
-        children = [mutate(c, optimized, toss, mutation_rate) for c in children]
+        children = [mutate_by_insertion(c, optimized) for c in children]
         children = map_from_optimized(children, optimized)
         children = evaluate(children, optimized, l, N)
         children = [c for c in children if c[3] <= N]
