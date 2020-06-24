@@ -19,12 +19,13 @@ MUTATION_RATE = 0.1
 
 if __name__ == "__main__":
     results_file = create_results_file()
-    problem_type = ['RandomPositiveErrors', 'RandomNegativeErrors',
-                    'PositiveErrosWithDistortions,', 'NegativeByRepetition']
-    instances = get_intances(problem_type[1])
+    problem_types = ['RandomPositiveErrors', 'RandomNegativeErrors',
+                    'PositiveErrorsWithDistortions', 'NegativeByRepetition']
+    problem_type = problem_types[2]
+    instances = get_intances(problem_type)
     for instance in instances:
         spectrum = get_spectrum(
-            "./Instances/" + problem_type[1] + "/" + instance)
+            "./Instances/" + problem_type + "/" + instance)
         results_file.write(instance + "\n")
         print(instance)
         N, l, perfect_score, size_of_population, size_of_spectrum = set_parameters(
@@ -45,17 +46,21 @@ if __name__ == "__main__":
         #    current_best[4]) + " Accuracy: " + str((current_best[4]/perfect_score)*100) + "%\n")
         counter = 0
         generations = 1
-        while(counter < 100):
+        max_turns_without_change = 10
+        while(counter < max_turns_without_change):
             generations += 1
-            evolve(evaluated_population, size_of_population,
+            evaluated_population = evolve(evaluated_population, size_of_population,
                    optimized_elements, MUTATION_RATE, l, N)
-            current_best = find_best_seq(evaluated_population, N)
-            if(current_best[4] > best_found[4]):
+            #current_best = find_best_seq(evaluated_population, N)
+            current_best = max(evaluated_population, key=lambda x: x[5])
+            if(current_best[5] > best_found[5]):
                 best_found = current_best
                 # print(best_found)
                 counter = 0
             else:
                 counter += 1
+                if counter == max_turns_without_change:
+                    print(f'{max_turns_without_change} turns without change...')
         print(generations)
         print(best_found)
         # results_file.write("Generation: 100")  # + str(size_of_population*0.9))
@@ -65,3 +70,4 @@ if __name__ == "__main__":
         # accuracy_list.append((current_best[4]/perfect_score)*100)
         results_file.write(" Execution time: " + str(end - start) + " [s]\n")
         print("Execution time: " + str(end - start) + " [s]\n")
+        break
