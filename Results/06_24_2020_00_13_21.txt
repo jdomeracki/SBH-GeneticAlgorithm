@@ -1,0 +1,20 @@
+10.500-100.txt
+Generation: 1 Length: 493 Score: 175 Accuracy: 43.75%
+Generation: 100 Length: 509 Score: 213 Accuracy: 53.25% Execution time: 21.3177576 [s]
+10.500-200.txt
+Generation: 1 Length: 486 Score: 84 Accuracy: 28.000000000000004%
+Generation: 100 Length: 509 Score: 140 Accuracy: 46.666666666666664% Execution time: 21.636758699999998 [s]
+18.200-40.txt
+Generation: 1 Length: 208 Score: 39 Accuracy: 24.375%
+Generation: 100 Length: 209 Score: 52 Accuracy: 32.5% Execution time: 12.338383800000003 [s]
+18.200-80.txt
+Generation: 1 Length: 201 Score: 48 Accuracy: 40.0%
+Generation: 100 Length: 209 Score: 69 Accuracy: 57.49999999999999% Execution time: 11.515247700000003 [s]
+20.300-120.txt
+Generation: 1 Length: 308 Score: 81 Accuracy: 45.0%
+Generation: 100 Length: 309 Score: 88 Accuracy: 48.888888888888886% Execution time: 14.792768300000006 [s]
+20.300-60.txt
+Generation: 1 Length: 308 Score: 114 Accuracy: 47.5%
+Generation: 100 Length: 309 Score: 136 Accuracy: 56.666666666666664% Execution time: 13.99280730000001 [s]
+25.500-100.txt
+Generation: 1 Length: 508 Score: 190 Accuracy: 47.5%

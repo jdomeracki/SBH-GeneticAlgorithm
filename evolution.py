@@ -30,8 +30,15 @@ def find_worst_seq(list_of_seqs, N):
     return worst_seq_id
 
 
-def get_best_seq(evaluated_population, N):
-    best_seq = find_best_seq(evaluated_population, N)
+def get_best_seq(list_of_seqs, N):
+    best_score = -10000
+    best_seq = None
+    for seq in list_of_seqs:
+        fintess_score = seq[4]
+        seq_length = seq[3]
+        if (fintess_score > best_score and seq_length <= N):
+            best_score = fintess_score
+            best_seq = seq
     return best_seq
 
 
@@ -103,8 +110,8 @@ def verify_if_fit_and_legal(children, l_parent, r_parent, N):
         child_length = child[3]
         l_parent_score = l_parent[4]
         r_parent_score = r_parent[4]
-        # and (child_length <= N)):
-        if (((child_score > l_parent_score) or (child_score > r_parent_score))):
+        #
+        if (((child_score > l_parent_score) or (child_score > r_parent_score)) and (child_length <= N)):
             fit_legal_children.append(child)
     return fit_legal_children
 
@@ -142,30 +149,30 @@ def survival_of_the_fittest(evaluated_population, size_of_population, N):
     return loser_id
 
 
-def evolve(population, size_of_population, optimized, N, l):
-    for i in range(200):  # hardcoded
-        pop_children = []
-        for i in range(int(0.25*size_of_population)):
-            l_parent = tournament(population, size_of_population, N)
-            r_parent = tournament(population, size_of_population, N)
-            children = multi_point_crossover(
-                l_parent, r_parent, optimized, l, N)
+def evolve(population, size_of_population, optimized, mutation_rate, l, N):
+    # for i in range(100):  # hardcoded
+    pop_children = []
+    for i in range(int(0.25*size_of_population)):
+        l_parent = tournament(population, size_of_population, N)
+        r_parent = tournament(population, size_of_population, N)
+        children = multi_point_crossover(
+            l_parent, r_parent, optimized, l, N)
+        for child in children:
+            toss = random.uniform(0, 1)
+            if(toss <= mutation_rate):
+                child = mutate_by_swap(child)
+            elif(toss >= 1-mutation_rate):
+                child = mutate_by_insertion(child, optimized)
+        children = map_from_optimized(children, optimized)
+        children = evaluate(children, optimized, l, N)
+        children = verify_if_fit_and_legal(children, l_parent, r_parent, N)
+        if (children):
             for child in children:
-                toss = random.uniform(0, 1)
-                if(toss <= 0.1):
-                    child = mutate_by_swap(child)
-                elif(toss >= 0.9):
-                    child = mutate_by_insertion(child, optimized)
-            children = map_from_optimized(children, optimized)
-            children = evaluate(children, optimized, l, N)
-            children = verify_if_fit_and_legal(children, l_parent, r_parent, N)
-            if (children):
-                for child in children:
-                    pop_children.append(child)
-        for child in pop_children:
-            loser_id = survival_of_the_fittest(
-                population, size_of_population, N)
-            population[loser_id] = child
+                pop_children.append(child)
+    for child in pop_children:
+        loser_id = survival_of_the_fittest(
+            population, size_of_population, N)
+        population[loser_id] = child
 
 
 if __name__ == "__main__":

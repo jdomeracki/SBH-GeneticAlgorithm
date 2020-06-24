@@ -1,0 +1,9 @@
+10.500-100.txt
+ Execution time: 80.8794538 [s]
+10.500-200.txt
+ Execution time: 47.95418529999999 [s]
+18.200-40.txt
+ Execution time: 19.2762142 [s]
+18.200-80.txt
+ Execution time: 17.31323979999999 [s]
+20.300-120.txt

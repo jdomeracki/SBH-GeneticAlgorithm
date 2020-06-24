@@ -1,0 +1,72 @@
+10.500-100.txt
+Generation: 1 Length: 509 Score: 196 Accuracy: 49.0%
+Generation: 100 Length: 509 Score: 210 Accuracy: 52.5% Execution time: 10.376343799999999 [s]
+10.500-200.txt
+Generation: 1 Length: 492 Score: 87 Accuracy: 28.999999999999996%
+Generation: 100 Length: 509 Score: 148 Accuracy: 49.333333333333336% Execution time: 12.001866999999999 [s]
+18.200-40.txt
+Generation: 1 Length: 207 Score: 41 Accuracy: 25.624999999999996%
+Generation: 100 Length: 209 Score: 54 Accuracy: 33.75% Execution time: 6.650272599999997 [s]
+18.200-80.txt
+Generation: 1 Length: 209 Score: 51 Accuracy: 42.5%
+Generation: 100 Length: 209 Score: 69 Accuracy: 57.49999999999999% Execution time: 6.152002800000002 [s]
+20.300-120.txt
+Generation: 1 Length: 304 Score: 72 Accuracy: 40.0%
+Generation: 100 Length: 309 Score: 97 Accuracy: 53.888888888888886% Execution time: 8.230701500000002 [s]
+20.300-60.txt
+Generation: 1 Length: 309 Score: 118 Accuracy: 49.166666666666664%
+Generation: 100 Length: 309 Score: 140 Accuracy: 58.333333333333336% Execution time: 7.259311000000004 [s]
+25.500-100.txt
+Generation: 1 Length: 503 Score: 179 Accuracy: 44.75%
+Generation: 100 Length: 509 Score: 221 Accuracy: 55.25% Execution time: 13.033451300000003 [s]
+25.500-200.txt
+Generation: 1 Length: 509 Score: 133 Accuracy: 44.333333333333336%
+Generation: 100 Length: 509 Score: 172 Accuracy: 57.333333333333336% Execution time: 12.864311600000008 [s]
+35.200-40.txt
+Generation: 1 Length: 208 Score: 85 Accuracy: 53.125%
+Generation: 100 Length: 209 Score: 109 Accuracy: 68.125% Execution time: 5.696685099999996 [s]
+35.200-80.txt
+Generation: 1 Length: 209 Score: 50 Accuracy: 41.66666666666667%
+Generation: 100 Length: 209 Score: 70 Accuracy: 58.333333333333336% Execution time: 6.380121099999997 [s]
+53.500-100.txt
+Generation: 1 Length: 505 Score: 196 Accuracy: 49.0%
+Generation: 100 Length: 509 Score: 235 Accuracy: 58.75% Execution time: 10.703098399999988 [s]
+53.500-200.txt
+Generation: 1 Length: 486 Score: 96 Accuracy: 32.0%
+Generation: 100 Length: 509 Score: 155 Accuracy: 51.66666666666667% Execution time: 11.469186199999996 [s]
+55.300-120.txt
+Generation: 1 Length: 303 Score: 66 Accuracy: 36.666666666666664%
+Generation: 100 Length: 309 Score: 95 Accuracy: 52.77777777777778% Execution time: 8.590845200000004 [s]
+55.300-60.txt
+Generation: 1 Length: 309 Score: 116 Accuracy: 48.333333333333336%
+Generation: 100 Length: 309 Score: 147 Accuracy: 61.25000000000001% Execution time: 7.141066299999991 [s]
+55.400-160.txt
+Generation: 1 Length: 400 Score: 81 Accuracy: 33.75%
+Generation: 100 Length: 409 Score: 129 Accuracy: 53.75% Execution time: 10.276844199999985 [s]
+55.400-80.txt
+Generation: 1 Length: 397 Score: 135 Accuracy: 42.1875%
+Generation: 100 Length: 409 Score: 173 Accuracy: 54.0625% Execution time: 12.114794799999999 [s]
+58.300-120.txt
+Generation: 1 Length: 309 Score: 76 Accuracy: 42.22222222222222%
+Generation: 100 Length: 309 Score: 100 Accuracy: 55.55555555555556% Execution time: 13.76744309999998 [s]
+58.300-60.txt
+Generation: 1 Length: 309 Score: 108 Accuracy: 45.0%
+Generation: 100 Length: 309 Score: 130 Accuracy: 54.166666666666664% Execution time: 7.025794399999995 [s]
+62.400-160.txt
+Generation: 1 Length: 409 Score: 93 Accuracy: 38.75%
+Generation: 100 Length: 409 Score: 122 Accuracy: 50.83333333333333% Execution time: 12.031418599999995 [s]
+62.400-80.txt
+Generation: 1 Length: 402 Score: 133 Accuracy: 41.5625%
+Generation: 100 Length: 409 Score: 172 Accuracy: 53.75% Execution time: 9.582639499999999 [s]
+68.400-160.txt
+Generation: 1 Length: 406 Score: 93 Accuracy: 38.75%
+Generation: 100 Length: 409 Score: 129 Accuracy: 53.75% Execution time: 12.443359499999985 [s]
+68.400-80.txt
+Generation: 1 Length: 401 Score: 150 Accuracy: 46.875%
+Generation: 100 Length: 409 Score: 185 Accuracy: 57.8125% Execution time: 9.912911400000013 [s]
+9.200-40.txt
+Generation: 1 Length: 208 Score: 85 Accuracy: 53.125%
+Generation: 100 Length: 209 Score: 98 Accuracy: 61.25000000000001% Execution time: 6.307998300000008 [s]
+9.200-80.txt
+Generation: 1 Length: 206 Score: 45 Accuracy: 37.5%
+Generation: 100 Length: 209 Score: 61 Accuracy: 50.83333333333333% Execution time: 6.681014800000014 [s]

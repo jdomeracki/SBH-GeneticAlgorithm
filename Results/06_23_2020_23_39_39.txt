@@ -1,0 +1,2 @@
+113.500-8.txt
+Generation: 1 Length: 3937 Score: -3672 Accuracy: -3249.5575221238937%

@@ -1,0 +1,36 @@
+10.500+200.txt
+Generation: 1 Length: 506 Score: 381 Accuracy: 76.2%
+Generation: 100 Length: 508 Score: 453 Accuracy: 90.60000000000001% Execution time: 5.0585761 [s]
+18.200+80.txt
+Generation: 1 Length: 199 Score: 162 Accuracy: 81.0%
+Generation: 100 Length: 209 Score: 173 Accuracy: 86.5% Execution time: 3.7808492000000005 [s]
+20.300+120.txt
+Generation: 1 Length: 309 Score: 247 Accuracy: 82.33333333333334%
+Generation: 100 Length: 309 Score: 247 Accuracy: 82.33333333333334% Execution time: 4.087421299999999 [s]
+25.500+200.txt
+Generation: 1 Length: 503 Score: 82 Accuracy: 16.400000000000002%
+Generation: 100 Length: 509 Score: 112 Accuracy: 22.400000000000002% Execution time: 12.0639257 [s]
+35.200+80.txt
+Generation: 1 Length: 206 Score: 194 Accuracy: 97.0%
+Generation: 100 Length: 206 Score: 194 Accuracy: 97.0% Execution time: 2.877605599999999 [s]
+53.500+200.txt
+Generation: 1 Length: 508 Score: 403 Accuracy: 80.60000000000001%
+Generation: 100 Length: 507 Score: 406 Accuracy: 81.2% Execution time: 5.2781968000000035 [s]
+55.300+120.txt
+Generation: 1 Length: 289 Score: 189 Accuracy: 63.0%
+Generation: 100 Length: 309 Score: 212 Accuracy: 70.66666666666667% Execution time: 5.371268499999999 [s]
+55.400+160.txt
+Generation: 1 Length: 404 Score: 242 Accuracy: 60.5%
+Generation: 100 Length: 409 Score: 290 Accuracy: 72.5% Execution time: 5.912907199999999 [s]
+58.300+120.txt
+Generation: 1 Length: 308 Score: 184 Accuracy: 61.33333333333333%
+Generation: 100 Length: 309 Score: 192 Accuracy: 64.0% Execution time: 5.127805600000002 [s]
+62.400+160.txt
+Generation: 1 Length: 407 Score: 345 Accuracy: 86.25%
+Generation: 100 Length: 409 Score: 348 Accuracy: 87.0% Execution time: 4.282994299999999 [s]
+68.400+160.txt
+Generation: 1 Length: 405 Score: 69 Accuracy: 17.25%
+Generation: 100 Length: 409 Score: 100 Accuracy: 25.0% Execution time: 11.240094300000003 [s]
+9.200+80.txt
+Generation: 1 Length: 169 Score: -21 Accuracy: -10.5%
+Generation: 100 Length: 169 Score: -21 Accuracy: -10.5% Execution time: 3.5453873000000016 [s]

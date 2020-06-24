@@ -49,14 +49,17 @@ def get_num_of_ncts(optimized, keys, length):
     return num_of_o_ncts
 
 
-def generate_population(optimized, size_of_population, N):
+def generate_population(optimized, size_of_population, key_of_best, N):
     population = []
     n = len(optimized)
     avg = int(ceil(N/get_avg(optimized)))
     for i in range(size_of_population):
         values = []
-        k = random.randint(avg, n-1)
+        k = random.randint(1, avg)
         keys = get_combination(n, k)
+        toss = random.uniform(0, 1)
+        if(toss <= 0.1 and key_of_best not in keys):
+            keys.insert(0, key_of_best)
         for key in keys:
             values.append(optimized[key])
         population.append([keys, values])
@@ -70,7 +73,7 @@ def evaluate(population, optimized, initial_length, N):
         merged_length = len(merged)
         seq.append(merged_length)
         num_of_o_ncts = get_num_of_ncts(optimized, seq[0], initial_length)
-        fitness_score = num_of_o_ncts - abs(N-merged_length)
+        fitness_score = overlaps + num_of_o_ncts - abs(N-merged_length)
         seq.append(fitness_score)
         seq.append(num_of_o_ncts)
     return population

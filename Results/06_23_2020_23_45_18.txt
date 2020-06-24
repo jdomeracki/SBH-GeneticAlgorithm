@@ -1,0 +1,5 @@
+10.500-100.txt
+Generation: 1 Length: 1480 Score: -863 Accuracy: -215.75000000000003%
+Generation: 100 Length: 1394 Score: -605 Accuracy: -151.25% Execution time: 21.851516 [s]
+10.500-200.txt
+Generation: 1 Length: 1719 Score: -1066 Accuracy: -355.3333333333333%

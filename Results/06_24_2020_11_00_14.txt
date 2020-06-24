@@ -1,0 +1,2 @@
+10.500+200.txt
+Generation: 1 Length: 496 Score: 441 Accuracy: 88.2%
